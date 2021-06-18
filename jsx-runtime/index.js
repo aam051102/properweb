@@ -3,6 +3,11 @@ Original: https://pomb.us/build-your-own-react/
 */
 
 /**
+ * Generic fragment.
+ */
+const fragment = "JSX_FRAG";
+
+/**
  * Creates a new element of a type with props.
  * @param {*} type 
  * @param {*} props 
@@ -44,7 +49,7 @@ const render = (element, container) => {
             dom = document.createTextNode("");
             break;
 
-        case "JSX_FRAG":
+        case fragment:
             element.props.children.forEach(child => render(child, container));
             return;
 
@@ -85,7 +90,7 @@ const renderToString = (element, container) => {
             dom = document.createTextNode("");
             break;
 
-        case "JSX_FRAG":
+        case fragment:
             element.props.children.forEach(child => renderToString(child, dom));
             return;
 
@@ -112,5 +117,5 @@ const renderToString = (element, container) => {
 };
 
 export {
-    createElement, render, renderToString 
+    createElement, render, renderToString, fragment
 };
