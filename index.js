@@ -1,3 +1,1 @@
-export {
-    createElement, render, renderToString 
-} from "./jsx-runtime";
+export * as JSX from "./jsx-runtime";
