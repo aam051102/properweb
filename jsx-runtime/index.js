@@ -111,6 +111,6 @@ const renderToString = (element, container) => {
     container.appendChild(dom);
 };
 
-export default {
+export {
     createElement, render, renderToString 
 };
