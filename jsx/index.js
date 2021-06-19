@@ -117,5 +117,5 @@ const renderToString = (element, container) => {
 };
 
 export {
-    createElement, render, renderToString, fragment
+    createElement, render, renderToString, fragment 
 };

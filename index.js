@@ -1,1 +1,1 @@
-export * as JSX from "./jsx-runtime";
+export * as JSX from "./jsx";
