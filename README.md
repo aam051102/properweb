@@ -9,7 +9,3 @@ The (opinionated) proper way to develop websites. Tired of typing long, complex 
 - Add HTML elements through JavaScript with JSX.
 - Components automatically rebuild when imports are modified.
 - Write HTML templates with JSX.
-
-## TODO
-- Add JQuery-to-JS transpiler.
-- Add TypeScript support.
