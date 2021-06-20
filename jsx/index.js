@@ -91,8 +91,14 @@ const renderToString = (element, container) => {
             break;
 
         case fragment:
+            if (!container) {
+                dom = document.createElement("");
+            } else {
+                dom = container;
+            }
+
             element.props.children.forEach(child => renderToString(child, dom));
-            return;
+            return dom.outerHTML;
 
         default:
             dom = document.createElement(element.type);

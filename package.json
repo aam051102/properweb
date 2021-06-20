@@ -5,12 +5,13 @@
     "main": "./dist/properweb.js",
     "scripts": {
         "build": "npm-run-all --parallel build:*",
-        "build:core-cjs": "esbuild ./index.js --bundle --minify --outfile=./dist/properweb.js --format=cjs --allow-overwrite",
+        "build:core-cjs": "esbuild ./index.js --bundle --minify --outfile=./dist/properweb.js --inject:./document-shim.js --platform=node --format=cjs --allow-overwrite",
         "build:core-esm": "esbuild ./index.js --bundle --minify --outfile=./dist/properweb.mjs --format=esm --allow-overwrite"
     },
     "exports": {
         ".": {
-            "default": "./dist/properweb.js",
+            "node": "./dist/properweb.js",
+            "require": "./dist/properweb.js",
             "import": "./dist/properweb.mjs"
         }
     },
@@ -28,6 +29,7 @@
     },
     "devDependencies": {
         "esbuild": "^0.12.9",
+        "jsdom": "^16.6.0",
         "npm-run-all": "^4.1.5"
     }
 }
