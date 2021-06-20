@@ -4,6 +4,51 @@
  */
 
 /**
+ * An object where the keys represent the input attribute name, and the values represent the in-browser attribute name.
+ */
+const ATTR_NAMES = {
+    "className": "class",
+    "htmlFor": "for"
+};
+
+/**
+ * DOM fragment stand-in.
+ */
+class DOMNodeFragment {
+    constructor() {
+        this.children = [];
+        this.textContent = "";
+    }
+
+    get outerHTML() {
+        // Children
+        let childCode = "";
+        this.children.forEach((child) => {
+            childCode += child.outerHTML;
+        });
+
+        return childCode || this.textContent;
+    }
+
+    appendChild(node) {
+        this.children.push(node);
+    }
+}
+
+/**
+ * DOM text node stand-in.
+ */
+class DOMTextNode {
+    constructor(nodeValue) {
+        this.nodeValue = nodeValue;
+    }
+
+    get outerHTML() {
+        return this.nodeValue;
+    }
+}
+
+/**
  * DOM element stand-in.
  */
 class DOMNode {
@@ -13,46 +58,30 @@ class DOMNode {
         this.textContent = "";
         this.nodeValue = "";
         this.listeners = {};
-
-        this.className = "";
-        this.htmlFor = "";
     }
 
     get outerHTML() {
-        // Text node special
-        if (this.tagName === "text") {
-            return this.nodeValue;
-        }
-
         // Children
         let childCode = "";
         this.children.forEach((child) => {
             childCode += child.outerHTML;
         });
 
-        // Fragment special
-        if (this.tagName === "") {
-            return childCode || this.textContent;
-        }
-
         // Attributes
         let attributeCode = "";
         const baseReference = new DOMNode();
         for (const attr in this) {
             if (baseReference[attr] === undefined) {
-                attributeCode += ` ${attr}="${this[attr]}"`;
+                attributeCode += " ";
+
+                if (ATTR_NAMES[attr]) {
+                    attributeCode += ATTR_NAMES[attr];
+                } else {
+                    attributeCode += attr;
+                }
+
+                attributeCode += `="${this[attr]}"`;
             }
-        }
-
-        // TODO: Find some way to generalize this just a little bit. Most of the code in here is just to get the basics working.
-        // className->class
-        if (this.className !== "") {
-            attributeCode += ` class="${this.className}"`;
-        }
-
-        // htmlFor->for
-        if (this.htmlFor !== "") {
-            attributeCode += ` for="${this.htmlFor}"`;
         }
 
         return `<${this.tagName}${attributeCode}>${childCode || this.textContent}</${this.tagName}>`;
@@ -77,7 +106,12 @@ const document = (function() {
      * @returns {DOMNode}
      */
     const createElement = (tagName) => {
-        const node = new DOMNode(tagName);
+        let node;
+        if (tagName === "") {
+            node = new DOMNodeFragment();
+        } else {
+            node = new DOMNode(tagName);
+        }
 
         return node;
     };
@@ -88,9 +122,7 @@ const document = (function() {
      * @returns {DOMNode}
      */
     const createTextNode = (data) => {
-        const node = new DOMNode("text");
-
-        node.textContent = data;
+        const node = new DOMTextNode(data);
 
         return node;
     };
