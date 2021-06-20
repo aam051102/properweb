@@ -1,6 +1,13 @@
-export namespace JSX {
-	function createElement(): any;
-	function createTextElement(): any;
-	function render(): any;
-	function renderToString(): any;
+export = properweb;
+export as namespace properweb;
+
+//import * as JSXInternal from "./jsx";
+
+declare namespace properweb {
+	//export import JSX = JSXInternal;
+	export interface JSX {
+		testVariable: string
+	}
+
+	let testVariable: string;
 }
