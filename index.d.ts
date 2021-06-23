@@ -1,9 +1,15 @@
-export = JSX;
-export as namespace JSX;
+export as namespace Proper;
 
-declare namespace JSX {
-	function createElement(): any;
-	function createTextElement(): any;
-	function render(): any;
-	function renderToString(): any;
-}
+export const fragment: string;
+
+export function createElement(): any;
+export function createTextElement(): any;
+export function render(): any;
+export function renderToString(): any;
+
+
+// Export Preact code for JSX types
+export { Fragment } from "preact";
+import { JSXInternal } from "preact/src/jsx";
+
+export { JSXInternal as JSX };
