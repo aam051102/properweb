@@ -1,5 +1,6 @@
 const defs = {};
 const DOM = (name, selector, all) => {
+    console.log(defs);
     if (selector) {
         if (all) {
             defs[name] = document.querySelectorAll(selector);
