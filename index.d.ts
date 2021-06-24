@@ -9,7 +9,6 @@ export function renderToString(): any;
 
 
 // Export Preact code for JSX types
-export { Fragment } from "preact";
 import { JSXInternal } from "preact/src/jsx";
 
 export { JSXInternal as JSX };
