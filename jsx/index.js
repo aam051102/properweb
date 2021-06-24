@@ -78,12 +78,36 @@ const render = (element, container) => {
 };
 
 /**
+ * Represents a fragment while rendering to string.
+ */
+class DOMNodeFragment {
+    constructor() {
+        this.children = [];
+        this.textContent = "";
+    }
+
+    get outerHTML() {
+        // Children
+        let childCode = "";
+        this.children.forEach((child) => {
+            childCode += child.outerHTML;
+        });
+
+        return childCode || this.textContent;
+    }
+
+    appendChild(node) {
+        this.children.push(node);
+    }
+}
+
+/**
  * Renders HTML elements to a string.
  * @param {*} element 
  * @param {*} container 
  * @returns 
  */
-const renderToString = (element, container) => {
+const renderToString = (element, container) => {    
     let dom;
     switch (element.type) {
         case "TEXT_ELEMENT":
@@ -91,8 +115,8 @@ const renderToString = (element, container) => {
             break;
 
         case fragment:
-            if (!container) {
-                dom = document.createElement("");
+            if (container === undefined) {
+                dom = new DOMNodeFragment();
             } else {
                 dom = container;
             }
