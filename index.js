@@ -25,4 +25,6 @@ Proper.fragment = Proper.fn.createElefragmentment = fragment;
 Proper.render = Proper.fn.render = render;
 Proper.renderToString = Proper.fn.renderToString = renderToString;
 
-export { Proper };
+export {
+    Proper, Proper as P 
+};
