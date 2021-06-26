@@ -1,3 +1,0 @@
-interface ProperBase {
-    jquery: string;
-}

@@ -1,37 +1,16 @@
+import "./misc";
 
-/*import { JSXInternal } from "preact/src/jsx";
+// Redeclaration is currently necessary for `import { Proper, P };`
+declare const ProperTop: ProperStatic;
 
-declare interface Component {
-	type: string,
-    props: {
-        children: Component[]
-    } & {}
-}
+export {
+	ProperTop as Proper,
+	ProperTop as P
+};
 
-declare interface TextComponent extends Component {
-	props: {
-		nodeValue: string,
-		children: Component[]
-	} & {}
-}
+// TODO: Find a way to export JSX types properly.
+import { JSXInternal } from "preact/src/jsx";
 
-interface ProperBase {
-	createElement(type: string, props: any, ...children: Component[]): Component;
-	createTextElement(text: string): TextComponent;
-	render(element: Component, container: Component): void;
-	renderToString(element: Component, container?: Component): string;
-}
+export import JSX = JSXInternal
 
-interface ProperStatic {
-	(name: string, selector?: string, all?: boolean): any
-	fragment: string
-	readonly fn: ProperBase
-}*/
-
-
-
-/// <reference path="ProperStatic.d.ts" />
-/// <reference path="ProperBase.d.ts" />
-/// <reference path="misc.d.ts" />
-
-export = Proper;
+export as namespace Proper;
